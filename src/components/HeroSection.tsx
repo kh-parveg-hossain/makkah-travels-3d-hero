@@ -5,6 +5,7 @@ import { Calendar, Map, Phone } from 'lucide-react';
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   
   useEffect(() => {
@@ -15,22 +16,35 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleIframeLoad = () => {
+    setIframeLoaded(true);
+  };
+
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden islamic-pattern">
+      {/* Overlay with gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-hajj-dark/90 via-hajj-primary/80 to-hajj-dark/90 z-10"></div>
       
       {/* 3D Model */}
-      <div className="absolute inset-0 w-full h-full z-0">
+      <div className={`absolute inset-0 w-full h-full z-0 transition-opacity duration-700 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}>
         <iframe 
           ref={iframeRef}
           title="Kaaba" 
           className="w-full h-full"
           frameBorder="0" 
           allowFullScreen 
+          onLoad={handleIframeLoad}
           allow="autoplay; fullscreen; xr-spatial-tracking" 
           src="https://sketchfab.com/models/45d4b0b4404a4ad7b3f7235f7a10382c/embed?autospin=1&autostart=1&preload=1&ui_infos=0&ui_controls=0&ui_stop=0"
         />
       </div>
+      
+      {/* Loading indicator */}
+      {!iframeLoaded && (
+        <div className="absolute inset-0 z-5 flex items-center justify-center">
+          <div className="w-16 h-16 border-4 border-hajj-accent border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       
       {/* Content */}
       <div className="container mx-auto px-4 relative z-20 h-full flex items-center">
