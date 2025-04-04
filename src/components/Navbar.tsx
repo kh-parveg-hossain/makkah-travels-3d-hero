@@ -1,11 +1,18 @@
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone } from 'lucide-react';
+import { Menu, X, Phone, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [language, setLanguage] = useState('English');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +33,20 @@ const Navbar = () => {
     { name: 'Testimonials', href: '#testimonials' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const languages = [
+    { name: 'Bengali', code: 'bn' },
+    { name: 'English', code: 'en' },
+    { name: 'Hindi', code: 'hi' },
+    { name: 'Urdu', code: 'ur' },
+    { name: 'Arabic', code: 'ar' },
+  ];
+
+  const handleLanguageChange = (name: string) => {
+    setLanguage(name);
+    // In a real application, you would implement language switching logic here
+    console.log(`Language changed to ${name}`);
+  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
@@ -54,15 +75,53 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Contact Button */}
-          <div className="hidden md:block">
+          {/* Contact Button and Language Selector */}
+          <div className="hidden md:flex items-center space-x-4">
+            {/* Language Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`flex items-center px-3 py-1 rounded-full border ${isScrolled ? 'border-hajj-primary text-hajj-primary' : 'border-white text-white'} hover:bg-white/10`}>
+                <Globe className="mr-2 h-4 w-4" />
+                <span>{language}</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languages.map((lang) => (
+                  <DropdownMenuItem 
+                    key={lang.code}
+                    className={`${language === lang.name ? 'bg-hajj-accent/10 text-hajj-accent' : ''}`}
+                    onClick={() => handleLanguageChange(lang.name)}
+                  >
+                    {lang.name}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Contact Button */}
             <Button className="bg-hajj-accent hover:bg-hajj-accent/90 text-white rounded-full">
               <Phone className="mr-2 h-4 w-4" /> +880 123 456 789
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
+            {/* Mobile Language Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`mr-3 flex items-center p-1 rounded-full ${isScrolled ? 'text-hajj-primary' : 'text-white'}`}>
+                <Globe className="h-5 w-5" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {languages.map((lang) => (
+                  <DropdownMenuItem 
+                    key={lang.code}
+                    className={`${language === lang.name ? 'bg-hajj-accent/10 text-hajj-accent' : ''}`}
+                    onClick={() => handleLanguageChange(lang.name)}
+                  >
+                    {lang.name}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`focus:outline-none ${isScrolled ? 'text-hajj-primary' : 'text-white'}`}
