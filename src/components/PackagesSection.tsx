@@ -33,7 +33,7 @@ const PackageCard = ({
           className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = "https://images.unsplash.com/photo-1564769625744-944d8c7e0d7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
+            target.src = "https://images.unsplash.com/photo-1604934128850-88e4f3f29bde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
           }}
         />
         {popular && (
@@ -90,7 +90,7 @@ const PackagesSection = () => {
       days: 14,
       price: 3499,
       startDate: "May 15, 2025",
-      image: "https://images.unsplash.com/photo-1537622988453-d2617d77dce4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1604934128850-88e4f3f29bde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       features: [
         "Accommodation in 3-star hotels",
         "Transportation between holy sites",
@@ -104,7 +104,7 @@ const PackagesSection = () => {
       days: 18,
       price: 5299,
       startDate: "May 12, 2025",
-      image: "https://images.unsplash.com/photo-1564769625744-944d8c7e0d7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1590588885377-d782f696bf28?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       popular: true,
       features: [
         "Luxury accommodation near Haram",
@@ -120,7 +120,7 @@ const PackagesSection = () => {
       days: 16,
       price: 4799,
       startDate: "May 14, 2025",
-      image: "https://images.unsplash.com/photo-1597532847110-383dea7f6a8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      image: "https://images.unsplash.com/photo-1572443490709-e57455b01aa3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       features: [
         "Family rooms in 4-star hotels",
         "Spacious transportation",
