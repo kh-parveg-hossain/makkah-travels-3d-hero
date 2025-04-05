@@ -2,25 +2,9 @@
 import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Button } from '@/components/ui/button';
-import { Check, Clock, Calendar, Users, MapPin, ChevronRight, Star } from 'lucide-react';
+import { Check, Clock, Calendar, Users, MapPin, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/contexts/ThemeContext';
-
-const StarRating = ({ rating }: { rating: number }) => {
-  return (
-    <div className="flex items-center">
-      {[...Array(5)].map((_, i) => (
-        <Star
-          key={i}
-          className={`h-4 w-4 ${
-            i < rating ? 'text-hajj-accent fill-hajj-accent' : 'text-gray-300'
-          }`}
-        />
-      ))}
-      <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">{rating.toFixed(1)}</span>
-    </div>
-  );
-};
 
 const PackageCard = ({ 
   title, 
@@ -29,8 +13,7 @@ const PackageCard = ({
   startDate, 
   image, 
   popular = false,
-  features,
-  rating
+  features
 }: { 
   title: string; 
   days: number; 
@@ -39,7 +22,7 @@ const PackageCard = ({
   image: string;
   popular?: boolean;
   features: string[];
-  rating: number;
+  rating?: number; // Keep the type but we won't use it
 }) => {
   return (
     <div className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
@@ -57,8 +40,6 @@ const PackageCard = ({
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold text-hajj-primary dark:text-white mb-2">{title}</h3>
-        
-        <StarRating rating={rating} />
         
         <div className="flex justify-between items-center my-4">
           <div className="flex items-center">
@@ -108,8 +89,7 @@ const PackagesSection = () => {
         "Daily meals included",
         "Guidance from experienced scholars",
         "Visa processing assistance"
-      ],
-      rating: 4.3
+      ]
     },
     {
       title: "Premium Hajj Package",
@@ -125,8 +105,7 @@ const PackagesSection = () => {
         "Personalized guidance",
         "Priority access at sites",
         "Additional Ziyarat tours included"
-      ],
-      rating: 4.9
+      ]
     },
     {
       title: "Family Hajj Package",
@@ -141,8 +120,7 @@ const PackagesSection = () => {
         "Special programs for children",
         "Family guidance sessions",
         "Medical assistance included"
-      ],
-      rating: 4.6
+      ]
     },
   ];
 
@@ -186,3 +164,4 @@ const PackagesSection = () => {
 };
 
 export default PackagesSection;
+
