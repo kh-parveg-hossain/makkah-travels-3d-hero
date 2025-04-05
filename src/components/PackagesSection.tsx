@@ -2,8 +2,25 @@
 import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Button } from '@/components/ui/button';
-import { Check, Clock, Calendar, Users, MapPin, ChevronRight } from 'lucide-react';
+import { Check, Clock, Calendar, Users, MapPin, ChevronRight, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { useTheme } from '@/contexts/ThemeContext';
+
+const StarRating = ({ rating }: { rating: number }) => {
+  return (
+    <div className="flex items-center">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          className={`h-4 w-4 ${
+            i < rating ? 'text-hajj-accent fill-hajj-accent' : 'text-gray-300'
+          }`}
+        />
+      ))}
+      <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">{rating.toFixed(1)}</span>
+    </div>
+  );
+};
 
 const PackageCard = ({ 
   title, 
@@ -12,7 +29,8 @@ const PackageCard = ({
   startDate, 
   image, 
   popular = false,
-  features 
+  features,
+  rating
 }: { 
   title: string; 
   days: number; 
@@ -20,10 +38,11 @@ const PackageCard = ({
   startDate: string; 
   image: string;
   popular?: boolean;
-  features: string[]; 
+  features: string[];
+  rating: number;
 }) => {
   return (
-    <div className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group">
+    <div className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
       <div className="relative">
         <img src={image} alt={title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
         {popular && (
@@ -31,18 +50,20 @@ const PackageCard = ({
             Popular Choice
           </Badge>
         )}
-        <div className="absolute bottom-4 left-4 bg-white/90 py-1 px-3 rounded-full flex items-center">
-          <Clock className="h-4 w-4 text-hajj-primary mr-1" />
+        <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-800/90 py-1 px-3 rounded-full flex items-center">
+          <Clock className="h-4 w-4 text-hajj-primary dark:text-hajj-accent mr-1" />
           <span className="text-sm">{days} Days</span>
         </div>
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-semibold text-hajj-primary mb-3">{title}</h3>
+        <h3 className="text-xl font-semibold text-hajj-primary dark:text-white mb-2">{title}</h3>
         
-        <div className="flex justify-between items-center mb-4">
+        <StarRating rating={rating} />
+        
+        <div className="flex justify-between items-center my-4">
           <div className="flex items-center">
             <Calendar className="h-4 w-4 text-hajj-accent mr-2" />
-            <span className="text-sm text-gray-600">{startDate}</span>
+            <span className="text-sm text-gray-600 dark:text-gray-400">{startDate}</span>
           </div>
           <div className="text-hajj-accent font-bold text-xl">
             ${price}
@@ -53,7 +74,7 @@ const PackageCard = ({
           {features.map((feature, index) => (
             <div key={index} className="flex items-start">
               <Check className="h-5 w-5 text-hajj-accent mr-2 mt-0.5 flex-shrink-0" />
-              <span className="text-sm text-gray-700">{feature}</span>
+              <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
             </div>
           ))}
         </div>
@@ -71,6 +92,8 @@ const PackagesSection = () => {
     threshold: 0.1,
     triggerOnce: true,
   });
+  
+  const { theme } = useTheme();
 
   const packages = [
     {
@@ -85,7 +108,8 @@ const PackagesSection = () => {
         "Daily meals included",
         "Guidance from experienced scholars",
         "Visa processing assistance"
-      ]
+      ],
+      rating: 4.3
     },
     {
       title: "Premium Hajj Package",
@@ -101,7 +125,8 @@ const PackagesSection = () => {
         "Personalized guidance",
         "Priority access at sites",
         "Additional Ziyarat tours included"
-      ]
+      ],
+      rating: 4.9
     },
     {
       title: "Family Hajj Package",
@@ -116,12 +141,13 @@ const PackagesSection = () => {
         "Special programs for children",
         "Family guidance sessions",
         "Medical assistance included"
-      ]
+      ],
+      rating: 4.6
     },
   ];
 
   return (
-    <section id="packages" className="py-20 islamic-pattern">
+    <section id="packages" className="py-20 bg-gradient-to-b from-hajj-primary to-hajj-dark text-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="text-white font-medium">Our Packages</span>
