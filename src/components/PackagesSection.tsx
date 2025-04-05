@@ -27,7 +27,15 @@ const PackageCard = ({
   return (
     <div className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
       <div className="relative">
-        <img src={image} alt={title} className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105" />
+        <img 
+          src={image} 
+          alt={title} 
+          className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "https://images.unsplash.com/photo-1564769625744-944d8c7e0d7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
+          }}
+        />
         {popular && (
           <Badge className="absolute top-4 right-4 bg-hajj-accent text-white">
             Popular Choice
@@ -82,7 +90,7 @@ const PackagesSection = () => {
       days: 14,
       price: 3499,
       startDate: "May 15, 2025",
-      image: "https://images.unsplash.com/photo-1537622988453-d2617d77dce4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      image: "https://images.unsplash.com/photo-1537622988453-d2617d77dce4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       features: [
         "Accommodation in 3-star hotels",
         "Transportation between holy sites",
@@ -96,7 +104,7 @@ const PackagesSection = () => {
       days: 18,
       price: 5299,
       startDate: "May 12, 2025",
-      image: "https://images.unsplash.com/photo-1564769625744-944d8c7e0d7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      image: "https://images.unsplash.com/photo-1564769625744-944d8c7e0d7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       popular: true,
       features: [
         "Luxury accommodation near Haram",
@@ -112,7 +120,7 @@ const PackagesSection = () => {
       days: 16,
       price: 4799,
       startDate: "May 14, 2025",
-      image: "https://images.unsplash.com/photo-1597532847110-383dea7f6a8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1964&q=80",
+      image: "https://images.unsplash.com/photo-1597532847110-383dea7f6a8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
       features: [
         "Family rooms in 4-star hotels",
         "Spacious transportation",
@@ -164,4 +172,3 @@ const PackagesSection = () => {
 };
 
 export default PackagesSection;
-
