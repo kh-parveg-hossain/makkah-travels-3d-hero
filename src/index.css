@@ -1,72 +1,197 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 150 30% 98%;
-    --foreground: 150 30% 10%;
-
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 150 30% 10%;
-
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 150 30% 10%;
-
-    --primary: 150 78% 21%;
-    --primary-foreground: 150 10% 98%;
-
-    --secondary: 48 60% 94%;
-    --secondary-foreground: 150 30% 10%;
-
-    --muted: 150 20% 96%;
-    --muted-foreground: 150 15% 45%;
-
-    --accent: 42 50% 58%;
-    --accent-foreground: 150 30% 10%;
-
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 142 72% 29%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 32 98% 56%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 150 10% 98%;
-
-    --border: 150 20% 90%;
-    --input: 150 20% 90%;
-    --ring: 150 78% 21%;
-
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142 72% 29%;
     --radius: 0.5rem;
   }
 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 142 70% 50%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 32 98% 56%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142 70% 50%;
+  }
+}
+
+/* Add RTL support */
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl .mr-2,
+.rtl .mr-3,
+.rtl .mr-4 {
+  margin-right: 0;
+}
+
+.rtl .mr-2 {
+  margin-left: 0.5rem;
+}
+
+.rtl .mr-3 {
+  margin-left: 0.75rem;
+}
+
+.rtl .mr-4 {
+  margin-left: 1rem;
+}
+
+.rtl .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+.rtl .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+.rtl .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+.rtl .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+@layer base {
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground;
   }
 
-  /* Custom styling */
-  .islamic-pattern {
-    background-color: #0d5c3b;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a55c' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  .font-arabic {
+    font-family: 'Noto Sans Bengali', 'Noto Sans Arabic', sans-serif;
   }
 
-  .hero-pattern {
-    background-color: rgba(13, 92, 59, 0.05);
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%230d5c3b' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-  }
-
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-sm shadow-lg rounded-lg border border-white/20;
-  }
-  
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-hajj-primary relative inline-block mb-8;
+    @apply text-3xl md:text-4xl font-bold mt-2 text-hajj-primary;
   }
   
-  .section-title::after {
-    content: "";
-    @apply absolute -bottom-3 left-1/4 w-1/2 h-1 bg-hajj-accent rounded;
+  .islamic-pattern {
+    background-image: url('/patterns/islamic-pattern.svg');
+    background-repeat: repeat;
+    background-size: 300px;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+  
+  .hero-pattern {
+    background-color: #f7f7f7;
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 0h2v20H9V0zm25.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm-20 20l1.732 1-10 17.32-1.732-1 10-17.32zM58.16 4.134l1 1.732-17.32 10-1-1.732 17.32-10zm-40 40l1 1.732-17.32 10-1-1.732 17.32-10zM80 9v2H60V9h20zM20 69v2H0v-2h20zm79.32-55l-1 1.732-17.32-10L82 4l17.32 10zm-80 80l-1 1.732-17.32-10L2 84l17.32 10zm96.546-75.84l-1.732 1-10-17.32 1.732-1 10 17.32zm-100 100l-1.732 1-10-17.32 1.732-1 10 17.32zM38.16 24.134l1 1.732-17.32 10-1-1.732 17.32-10zM60 29v2H40v-2h20zm19.32 5l-1 1.732-17.32-10L62 24l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM111 40h-2V20h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zM40 49v2H20v-2h20zm19.32 5l-1 1.732-17.32-10L42 44l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM91 60h-2V40h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM39.32 74l-1 1.732-17.32-10L22 64l17.32 10zm16.546 4.16l-1.732 1-10-17.32 1.732-1 10 17.32zM71 80h-2V60h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM120 89v2h-20v-2h20zm-84.134 9.16l-1.732 1-10-17.32 1.732-1 10 17.32zM51 100h-2V80h2v20zm3.134.84l1.732 1-10 17.32-1.732-1 10-17.32zm24.026 3.294l1 1.732-17.32 10-1-1.732 17.32-10zM100 109v2H80v-2h20zm19.32 5l-1 1.732-17.32-10 1-1.732 17.32 10zM31 120h-2v-20h2v20z' fill='%23054a29' fill-opacity='0.07' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+  
+  /* Animation for fading in elements */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Adding Tailwind CSS Utility Classes for our custom colors */
+:root {
+  --hajj-primary: #054a29;
+  --hajj-accent: #f98e1c;
+  --hajj-dark: #0e2d23;
+  --hajj-light: #f0f7f4;
+}
+
+@layer utilities {
+  .text-hajj-primary {
+    color: var(--hajj-primary);
+  }
+  .text-hajj-accent {
+    color: var(--hajj-accent);
+  }
+  .text-hajj-dark {
+    color: var(--hajj-dark);
+  }
+  .text-hajj-light {
+    color: var(--hajj-light);
+  }
+  
+  .bg-hajj-primary {
+    background-color: var(--hajj-primary);
+  }
+  .bg-hajj-accent {
+    background-color: var(--hajj-accent);
+  }
+  .bg-hajj-dark {
+    background-color: var(--hajj-dark);
+  }
+  .bg-hajj-light {
+    background-color: var(--hajj-light);
+  }
+  
+  .border-hajj-primary {
+    border-color: var(--hajj-primary);
+  }
+  .border-hajj-accent {
+    border-color: var(--hajj-accent);
+  }
+  
+  .from-hajj-primary {
+    --tw-gradient-from: var(--hajj-primary);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(5, 74, 41, 0));
+  }
+  .from-hajj-dark {
+    --tw-gradient-from: var(--hajj-dark);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(14, 45, 35, 0));
+  }
+  .via-hajj-primary {
+    --tw-gradient-stops: var(--tw-gradient-from), var(--hajj-primary), var(--tw-gradient-to, rgba(5, 74, 41, 0));
+  }
+  .to-hajj-dark {
+    --tw-gradient-to: var(--hajj-dark);
   }
 }

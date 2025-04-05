@@ -2,11 +2,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar, Map, Phone } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 
 const HeroSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
+  const isRtl = currentLanguage === 'ar' || currentLanguage === 'ur';
   
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,7 +26,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden islamic-pattern">
+    <section id="home" className={`relative h-screen w-full overflow-hidden islamic-pattern ${isRtl ? 'rtl' : ''}`}>
       {/* Overlay with gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-hajj-dark/90 via-hajj-primary/80 to-hajj-dark/90 z-10"></div>
       
@@ -52,20 +57,19 @@ const HeroSection = () => {
           <div className={`transition-all duration-700 ${isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2">
               <span className="block font-arabic mb-2">আল মুত্তাকিন</span>
-              <span className="text-hajj-accent">International Travels</span>
+              <span className="text-hajj-accent">{t.hero.title}</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-4 font-light">Your Trusted Partner for Sacred Journeys</p>
+            <p className="text-xl md:text-2xl mb-4 font-light">{t.hero.subtitle}</p>
             <p className="text-base md:text-lg mb-8 max-w-lg">
-              Experience a transformative spiritual journey with our premium Hajj and Umrah packages,
-              crafted with care, devotion, and attention to every detail.
+              {t.hero.description}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" className="bg-hajj-accent hover:bg-hajj-accent/90 text-white rounded-full">
-                <Calendar className="mr-2 h-5 w-5" /> Explore Hajj Packages
+                <Calendar className="mr-2 h-5 w-5" /> {t.hero.explorePackages}
               </Button>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 rounded-full">
-                <Phone className="mr-2 h-5 w-5" /> Contact Us
+                <Phone className="mr-2 h-5 w-5" /> {t.hero.contactUs}
               </Button>
             </div>
           </div>
@@ -81,8 +85,8 @@ const HeroSection = () => {
                 <Map className="h-6 w-6 text-hajj-accent" />
               </span>
               <div>
-                <h3 className="font-semibold">Premium Locations</h3>
-                <p className="text-sm opacity-80">Close proximity to Haram</p>
+                <h3 className="font-semibold">{t.hero.features.locations.title}</h3>
+                <p className="text-sm opacity-80">{t.hero.features.locations.description}</p>
               </div>
             </div>
             <div className="flex items-center justify-center text-white">
@@ -90,8 +94,8 @@ const HeroSection = () => {
                 <Calendar className="h-6 w-6 text-hajj-accent" />
               </span>
               <div>
-                <h3 className="font-semibold">Customized Packages</h3>
-                <p className="text-sm opacity-80">Tailored to your needs</p>
+                <h3 className="font-semibold">{t.hero.features.packages.title}</h3>
+                <p className="text-sm opacity-80">{t.hero.features.packages.description}</p>
               </div>
             </div>
             <div className="flex items-center justify-center md:justify-end text-white">
@@ -99,8 +103,8 @@ const HeroSection = () => {
                 <Phone className="h-6 w-6 text-hajj-accent" />
               </span>
               <div>
-                <h3 className="font-semibold">24/7 Support</h3>
-                <p className="text-sm opacity-80">Always there for you</p>
+                <h3 className="font-semibold">{t.hero.features.support.title}</h3>
+                <p className="text-sm opacity-80">{t.hero.features.support.description}</p>
               </div>
             </div>
           </div>

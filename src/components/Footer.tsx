@@ -1,9 +1,15 @@
 
 import { Facebook, Instagram, Twitter, Youtube, Phone, Mail, MapPin } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 
 const Footer = () => {
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
+  const isRtl = currentLanguage === 'ar' || currentLanguage === 'ur';
+
   return (
-    <footer className="bg-hajj-dark text-white">
+    <footer className={`bg-hajj-dark text-white ${isRtl ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
         {/* Main Footer */}
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -11,11 +17,10 @@ const Footer = () => {
           <div>
             <h3 className="text-2xl font-bold mb-6">
               <span className="block text-sm md:text-base font-arabic">আল মুত্তাকিন</span>
-              <span className="block text-hajj-accent">International Travels</span>
+              <span className="block text-hajj-accent">{t.hero.title}</span>
             </h3>
             <p className="text-white/70 mb-6">
-              Your trusted partner for Hajj and Umrah services, dedicated to providing 
-              spiritual journeys with comfort, care, and authentic Islamic guidance.
+              {t.footer.description}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="bg-white/10 hover:bg-hajj-accent transition-colors p-2 rounded-full">
@@ -35,32 +40,32 @@ const Footer = () => {
           
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-6 text-hajj-accent">Quick Links</h4>
+            <h4 className="text-lg font-semibold mb-6 text-hajj-accent">{t.footer.quickLinks}</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#home" className="text-white/70 hover:text-white transition-colors">Home</a>
+                <a href="#home" className="text-white/70 hover:text-white transition-colors">{t.navbar.home}</a>
               </li>
               <li>
-                <a href="#about" className="text-white/70 hover:text-white transition-colors">About Us</a>
+                <a href="#about" className="text-white/70 hover:text-white transition-colors">{t.navbar.about}</a>
               </li>
               <li>
-                <a href="#packages" className="text-white/70 hover:text-white transition-colors">Hajj Packages</a>
+                <a href="#packages" className="text-white/70 hover:text-white transition-colors">{t.navbar.hajjPackages}</a>
               </li>
               <li>
-                <a href="#umrah" className="text-white/70 hover:text-white transition-colors">Umrah Packages</a>
+                <a href="#umrah" className="text-white/70 hover:text-white transition-colors">{t.navbar.umrah}</a>
               </li>
               <li>
-                <a href="#testimonials" className="text-white/70 hover:text-white transition-colors">Testimonials</a>
+                <a href="#testimonials" className="text-white/70 hover:text-white transition-colors">{t.navbar.testimonials}</a>
               </li>
               <li>
-                <a href="#contact" className="text-white/70 hover:text-white transition-colors">Contact Us</a>
+                <a href="#contact" className="text-white/70 hover:text-white transition-colors">{t.navbar.contact}</a>
               </li>
             </ul>
           </div>
           
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-6 text-hajj-accent">Contact Information</h4>
+            <h4 className="text-lg font-semibold mb-6 text-hajj-accent">{t.footer.contactInfo}</h4>
             <ul className="space-y-4">
               <li className="flex">
                 <Phone className="h-5 w-5 text-hajj-accent mr-3 flex-shrink-0" />
@@ -81,21 +86,21 @@ const Footer = () => {
           
           {/* Newsletter */}
           <div>
-            <h4 className="text-lg font-semibold mb-6 text-hajj-accent">Newsletter</h4>
+            <h4 className="text-lg font-semibold mb-6 text-hajj-accent">{t.footer.newsletter}</h4>
             <p className="text-white/70 mb-4">
-              Subscribe to our newsletter to receive updates and special offers.
+              {t.footer.newsletterDesc}
             </p>
             <form className="flex">
               <input 
                 type="email" 
-                placeholder="Your Email" 
+                placeholder={t.footer.emailPlaceholder} 
                 className="bg-white/10 text-white border-0 rounded-l-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-hajj-accent"
               />
               <button 
                 type="submit" 
                 className="bg-hajj-accent hover:bg-hajj-accent/90 text-white px-4 rounded-r-lg"
               >
-                Subscribe
+                {t.footer.subscribe}
               </button>
             </form>
           </div>
@@ -104,7 +109,7 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="py-6 border-t border-white/10 text-center">
           <p className="text-white/60">
-            &copy; {new Date().getFullYear()} আল মুত্তাকিন International Travels. All rights reserved.
+            &copy; {new Date().getFullYear()} আল মুত্তাকিন {t.hero.title}. {t.footer.rights}
           </p>
         </div>
       </div>

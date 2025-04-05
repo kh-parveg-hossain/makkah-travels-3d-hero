@@ -3,6 +3,8 @@ import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Star } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 
 const UmrahSection = () => {
   const { ref, inView } = useInView({
@@ -10,8 +12,12 @@ const UmrahSection = () => {
     triggerOnce: true,
   });
 
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
+  const isRtl = currentLanguage === 'ar' || currentLanguage === 'ur';
+
   return (
-    <section id="umrah" className="py-20 bg-hajj-light relative overflow-hidden">
+    <section id="umrah" className={`py-20 bg-hajj-light relative overflow-hidden ${isRtl ? 'rtl' : ''}`}>
       {/* Decorative elements */}
       <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-hajj-accent/10"></div>
       <div className="absolute -left-10 bottom-10 w-40 h-40 rounded-full bg-hajj-primary/5"></div>
@@ -23,12 +29,11 @@ const UmrahSection = () => {
             ref={ref}
             className={`transition-all duration-1000 ${inView ? 'opacity-100' : 'opacity-0 -translate-x-10'}`}
           >
-            <span className="text-hajj-accent font-medium">Sacred Journey</span>
-            <h2 className="section-title">Umrah Packages For Every Season</h2>
+            <span className="text-hajj-accent font-medium">{t.umrah.title}</span>
+            <h2 className="section-title">{t.umrah.heading}</h2>
             
             <p className="text-gray-600 mb-6">
-              Perform Umrah at any time of the year with our all-inclusive packages designed for 
-              individuals, families, and groups. Experience the spiritual journey with comfort and ease.
+              {t.umrah.description}
             </p>
             
             <div className="space-y-4 mb-8">
@@ -37,9 +42,9 @@ const UmrahSection = () => {
                   <Star className="h-5 w-5 text-hajj-primary" />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-hajj-primary">Year-round Availability</h4>
+                  <h4 className="text-lg font-semibold text-hajj-primary">{t.umrah.features.availability.title}</h4>
                   <p className="text-gray-600">
-                    Choose your preferred time to perform Umrah with our flexible scheduling options.
+                    {t.umrah.features.availability.description}
                   </p>
                 </div>
               </div>
@@ -49,9 +54,9 @@ const UmrahSection = () => {
                   <Star className="h-5 w-5 text-hajj-primary" />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-hajj-primary">Customizable Packages</h4>
+                  <h4 className="text-lg font-semibold text-hajj-primary">{t.umrah.features.customizable.title}</h4>
                   <p className="text-gray-600">
-                    Tailor your Umrah experience according to your budget and preferences.
+                    {t.umrah.features.customizable.description}
                   </p>
                 </div>
               </div>
@@ -61,9 +66,9 @@ const UmrahSection = () => {
                   <Star className="h-5 w-5 text-hajj-primary" />
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-hajj-primary">Expert Guidance</h4>
+                  <h4 className="text-lg font-semibold text-hajj-primary">{t.umrah.features.guidance.title}</h4>
                   <p className="text-gray-600">
-                    Our knowledgeable guides assist you throughout your spiritual journey.
+                    {t.umrah.features.guidance.description}
                   </p>
                 </div>
               </div>
@@ -71,10 +76,10 @@ const UmrahSection = () => {
             
             <div className="space-x-4">
               <Button className="bg-hajj-primary hover:bg-hajj-dark text-white">
-                View Umrah Packages <ChevronRight className="h-4 w-4 ml-2" />
+                {t.umrah.viewPackages} <ChevronRight className="h-4 w-4 ml-2" />
               </Button>
               <Button variant="outline" className="border-hajj-primary text-hajj-primary hover:bg-hajj-primary/5">
-                Request Custom Package
+                {t.umrah.requestCustom}
               </Button>
             </div>
           </div>

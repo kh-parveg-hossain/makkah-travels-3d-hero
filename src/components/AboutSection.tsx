@@ -2,22 +2,27 @@
 import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Award, Heart, Users, CheckCircle } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 
 const AboutSection = () => {
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
   });
+  
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
+  const isRtl = currentLanguage === 'ar' || currentLanguage === 'ur';
 
   return (
-    <section id="about" className="py-20 hero-pattern">
+    <section id="about" className={`py-20 hero-pattern ${isRtl ? 'rtl' : ''}`}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <span className="text-hajj-accent font-medium">About Us</span>
-          <h2 className="section-title">Welcome to আল মুত্তাকিন International Travels</h2>
+          <span className="text-hajj-accent font-medium">{t.about.title}</span>
+          <h2 className="section-title">{t.about.heading}</h2>
           <p className="max-w-3xl mx-auto text-gray-600 mt-4">
-            With years of experience and a deep understanding of Islamic heritage,
-            we provide exceptional Hajj and Umrah services to pilgrims from around the world.
+            {t.about.description}
           </p>
         </div>
 
@@ -32,7 +37,7 @@ const AboutSection = () => {
               />
               <div className="absolute -bottom-8 -right-8 bg-hajj-primary text-white p-6 rounded-lg shadow-lg">
                 <div className="text-4xl font-bold">15+</div>
-                <div className="text-sm">Years of Experience</div>
+                <div className="text-sm">{t.about.experience}</div>
               </div>
             </div>
             <div className="absolute top-1/2 -left-8 transform -translate-y-1/2 bg-white p-4 rounded-lg shadow-lg">
@@ -49,12 +54,10 @@ const AboutSection = () => {
           {/* Right side content */}
           <div className={`transition-all duration-1000 delay-300 ${inView ? 'opacity-100' : 'opacity-0 translate-x-10'}`}>
             <h3 className="text-2xl font-semibold text-hajj-primary mb-6">
-              Your Journey to Spiritual Fulfillment Begins With Us
+              {t.about.journey}
             </h3>
             <p className="text-gray-600 mb-8">
-              At আল মুত্তাকিন International Travels, we understand the significance of Hajj and Umrah in a Muslim's life. 
-              Our mission is to provide a seamless and spiritually enriching experience to all our pilgrims, allowing them 
-              to focus entirely on their worship while we handle all logistics and arrangements.
+              {t.about.missionDescription}
             </p>
 
             <div className="space-y-6">
@@ -65,9 +68,9 @@ const AboutSection = () => {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-hajj-primary">Dedicated Service</h4>
+                  <h4 className="text-lg font-semibold text-hajj-primary">{t.about.features.service.title}</h4>
                   <p className="text-gray-600">
-                    We provide personalized attention to each pilgrim, ensuring their journey is comfortable and spiritually fulfilling.
+                    {t.about.features.service.description}
                   </p>
                 </div>
               </div>
@@ -79,9 +82,9 @@ const AboutSection = () => {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-hajj-primary">Experienced Guides</h4>
+                  <h4 className="text-lg font-semibold text-hajj-primary">{t.about.features.guides.title}</h4>
                   <p className="text-gray-600">
-                    Our multilingual guides have deep knowledge about the rituals and historical significance of holy sites.
+                    {t.about.features.guides.description}
                   </p>
                 </div>
               </div>
@@ -93,9 +96,9 @@ const AboutSection = () => {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-lg font-semibold text-hajj-primary">Quality Accommodations</h4>
+                  <h4 className="text-lg font-semibold text-hajj-primary">{t.about.features.accommodations.title}</h4>
                   <p className="text-gray-600">
-                    We select the best hotels and accommodations close to holy sites for maximum convenience.
+                    {t.about.features.accommodations.description}
                   </p>
                 </div>
               </div>

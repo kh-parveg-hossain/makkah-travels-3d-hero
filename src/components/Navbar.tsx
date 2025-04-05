@@ -8,11 +8,14 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
+import { useLanguage, Language, languageNames } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [language, setLanguage] = useState('English');
+  const { currentLanguage, setLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,30 +29,31 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About Us', href: '#about' },
-    { name: 'Hajj Packages', href: '#packages' },
-    { name: 'Umrah', href: '#umrah' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.navbar.home, href: '#home' },
+    { name: t.navbar.about, href: '#about' },
+    { name: t.navbar.hajjPackages, href: '#packages' },
+    { name: t.navbar.umrah, href: '#umrah' },
+    { name: t.navbar.testimonials, href: '#testimonials' },
+    { name: t.navbar.contact, href: '#contact' },
   ];
 
-  const languages = [
-    { name: 'Bengali', code: 'bn' },
-    { name: 'English', code: 'en' },
-    { name: 'Hindi', code: 'hi' },
-    { name: 'Urdu', code: 'ur' },
-    { name: 'Arabic', code: 'ar' },
+  const languages: { name: string; code: Language }[] = [
+    { name: languageNames.bn, code: 'bn' },
+    { name: languageNames.en, code: 'en' },
+    { name: languageNames.hi, code: 'hi' },
+    { name: languageNames.ur, code: 'ur' },
+    { name: languageNames.ar, code: 'ar' },
   ];
 
-  const handleLanguageChange = (name: string) => {
-    setLanguage(name);
-    // In a real application, you would implement language switching logic here
-    console.log(`Language changed to ${name}`);
+  const handleLanguageChange = (code: Language) => {
+    setLanguage(code);
   };
 
+  const isRtl = currentLanguage === 'ar' || currentLanguage === 'ur';
+  const rtlClass = isRtl ? 'rtl' : '';
+
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'} ${rtlClass}`}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -57,7 +61,7 @@ const Navbar = () => {
             <a href="#home" className="flex items-center">
               <span className={`text-xl md:text-2xl font-bold ${isScrolled ? 'text-hajj-primary' : 'text-white'}`}>
                 <span className="block text-sm md:text-base font-arabic">আল মুত্তাকিন</span>
-                <span className="block text-hajj-accent">International Travels</span>
+                <span className="block text-hajj-accent">{t.hero.title}</span>
               </span>
             </a>
           </div>
@@ -81,14 +85,14 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger className={`flex items-center px-3 py-1 rounded-full border ${isScrolled ? 'border-hajj-primary text-hajj-primary' : 'border-white text-white'} hover:bg-white/10`}>
                 <Globe className="mr-2 h-4 w-4" />
-                <span>{language}</span>
+                <span>{languageNames[currentLanguage]}</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {languages.map((lang) => (
                   <DropdownMenuItem 
                     key={lang.code}
-                    className={`${language === lang.name ? 'bg-hajj-accent/10 text-hajj-accent' : ''}`}
-                    onClick={() => handleLanguageChange(lang.name)}
+                    className={`${currentLanguage === lang.code ? 'bg-hajj-accent/10 text-hajj-accent' : ''}`}
+                    onClick={() => handleLanguageChange(lang.code)}
                   >
                     {lang.name}
                   </DropdownMenuItem>
@@ -113,8 +117,8 @@ const Navbar = () => {
                 {languages.map((lang) => (
                   <DropdownMenuItem 
                     key={lang.code}
-                    className={`${language === lang.name ? 'bg-hajj-accent/10 text-hajj-accent' : ''}`}
-                    onClick={() => handleLanguageChange(lang.name)}
+                    className={`${currentLanguage === lang.code ? 'bg-hajj-accent/10 text-hajj-accent' : ''}`}
+                    onClick={() => handleLanguageChange(lang.code)}
                   >
                     {lang.name}
                   </DropdownMenuItem>
