@@ -107,8 +107,8 @@ const UmrahSection = () => {
                 className="rounded-lg h-64 w-full object-cover"
               />
               <img 
-                src="https://images.unsplash.com/photo-1537225228614-56cc3556d7ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                alt="Madinah Mosque" 
+                src="https://images.unsplash.com/photos/ceNCWYqL8DY?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
+                alt="People around Grand Mosque" 
                 className="rounded-lg h-40 w-full object-cover"
               />
             </div>
