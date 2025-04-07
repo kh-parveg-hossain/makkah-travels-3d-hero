@@ -89,24 +89,24 @@ const UmrahSection = () => {
           >
             <div className="space-y-4">
               <img 
-                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                src="https://images.unsplash.com/photo-1693590614566-1d3ea9ef32f7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                 alt="Makkah" 
                 className="rounded-lg h-40 w-full object-cover"
               />
               <img 
-                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                src="https://images.unsplash.com/photo-1693590614566-1d3ea9ef32f7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                 alt="Makkah" 
                 className="rounded-lg h-64 w-full object-cover"
               />
             </div>
             <div className="space-y-4 mt-6">
               <img 
-                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                src="https://images.unsplash.com/photo-1693590614566-1d3ea9ef32f7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                 alt="Makkah" 
                 className="rounded-lg h-64 w-full object-cover"
               />
               <img 
-                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                src="https://images.unsplash.com/photo-1693590614566-1d3ea9ef32f7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                 alt="Makkah" 
                 className="rounded-lg h-40 w-full object-cover"
               />
