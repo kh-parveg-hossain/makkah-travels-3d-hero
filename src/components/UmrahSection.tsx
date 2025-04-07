@@ -89,25 +89,25 @@ const UmrahSection = () => {
           >
             <div className="space-y-4">
               <img 
-                src="https://images.unsplash.com/photo-1605371893234-2cc7d7d11bd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                alt="Masjid Al Haram" 
+                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                alt="Makkah" 
                 className="rounded-lg h-40 w-full object-cover"
               />
               <img 
-                src="https://images.unsplash.com/photo-1605371893234-2cc7d7d11bd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                alt="Masjid Al Haram" 
+                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                alt="Makkah" 
                 className="rounded-lg h-64 w-full object-cover"
               />
             </div>
             <div className="space-y-4 mt-6">
               <img 
-                src="https://images.unsplash.com/photo-1605371893234-2cc7d7d11bd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                alt="Masjid Al Haram" 
+                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                alt="Makkah" 
                 className="rounded-lg h-64 w-full object-cover"
               />
               <img 
-                src="https://images.unsplash.com/photo-1605371893234-2cc7d7d11bd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" 
-                alt="Masjid Al Haram" 
+                src="https://images.unsplash.com/photos/66Tu10CxYY0" 
+                alt="Makkah" 
                 className="rounded-lg h-40 w-full object-cover"
               />
             </div>

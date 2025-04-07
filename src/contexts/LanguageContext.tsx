@@ -21,10 +21,10 @@ type LanguageContextType = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  // Get saved language from localStorage or default to English
+  // Get saved language from localStorage or default to Bengali
   const [currentLanguage, setCurrentLanguage] = useState<Language>(() => {
     const savedLanguage = localStorage.getItem('language') as Language;
-    return savedLanguage || 'en';
+    return savedLanguage || 'bn';
   });
 
   // Update localStorage when language changes
