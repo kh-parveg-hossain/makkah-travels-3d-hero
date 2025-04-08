@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Check, Clock, Calendar, Users, MapPin, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/contexts/ThemeContext';
+import { Link } from 'react-router-dom';
 
 const PackageCard = ({ 
+  id,
   title, 
   days, 
   price, 
@@ -15,6 +17,7 @@ const PackageCard = ({
   popular = false,
   features
 }: { 
+  id: string;
   title: string; 
   days: number; 
   price: number; 
@@ -68,9 +71,11 @@ const PackageCard = ({
           ))}
         </div>
         
-        <Button className="w-full bg-hajj-primary hover:bg-hajj-dark text-white">
-          View Details <ChevronRight className="h-4 w-4 ml-1" />
-        </Button>
+        <Link to={`/package/${id}`}>
+          <Button className="w-full bg-hajj-primary hover:bg-hajj-dark text-white">
+            View Details <ChevronRight className="h-4 w-4 ml-1" />
+          </Button>
+        </Link>
       </div>
     </div>
   );
@@ -86,6 +91,7 @@ const PackagesSection = () => {
 
   const packages = [
     {
+      id: "standard",
       title: "Standard Hajj Package",
       days: 14,
       price: 3499,
@@ -100,6 +106,7 @@ const PackagesSection = () => {
       ]
     },
     {
+      id: "premium",
       title: "Premium Hajj Package",
       days: 18,
       price: 5299,
@@ -116,6 +123,7 @@ const PackagesSection = () => {
       ]
     },
     {
+      id: "family",
       title: "Family Hajj Package",
       days: 16,
       price: 4799,
