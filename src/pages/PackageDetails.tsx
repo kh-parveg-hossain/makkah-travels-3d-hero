@@ -18,11 +18,13 @@ import Footer from '@/components/Footer';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
 import { toast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const PackageDetails = () => {
   const { packageId } = useParams();
   const [packageData, setPackageData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [bookingLoading, setBookingLoading] = useState(false);
   const { theme } = useTheme();
 
   // Mock packages data - in a real app this would come from an API/database
@@ -147,11 +149,44 @@ const PackageDetails = () => {
     fetchPackageData();
   }, [packageId]);
 
-  const handleBookNow = () => {
-    toast({
-      title: "Booking initiated",
-      description: `Your booking for ${packageData?.title} is being processed.`,
-    });
+  const handleBookNow = async () => {
+    if (!packageData) return;
+    
+    setBookingLoading(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: {
+          packageId: packageData.id,
+          packageTitle: packageData.title,
+          price: packageData.price,
+        },
+      });
+
+      if (error) {
+        console.error('Payment error:', error);
+        toast({
+          title: "Payment Error",
+          description: "Failed to initiate payment. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      if (data?.url) {
+        // Open Stripe checkout in a new tab
+        window.open(data.url, '_blank');
+      }
+    } catch (error) {
+      console.error('Booking error:', error);
+      toast({
+        title: "Booking Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setBookingLoading(false);
+    }
   };
 
   if (loading) {
@@ -277,9 +312,10 @@ const PackageDetails = () => {
                 
                 <Button 
                   onClick={handleBookNow}
+                  disabled={bookingLoading}
                   className="w-full bg-hajj-primary hover:bg-hajj-dark text-white"
                 >
-                  Book Now
+                  {bookingLoading ? "Processing..." : "Book Now"}
                 </Button>
                 
                 <div className="mt-6">

@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Button } from '@/components/ui/button';
@@ -6,6 +5,9 @@ import { Check, Clock, Calendar, Users, MapPin, ChevronRight } from 'lucide-reac
 import { Badge } from '@/components/ui/badge';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/hooks/use-toast';
+import { useState } from 'react';
 
 const PackageCard = ({ 
   id,
@@ -25,8 +27,50 @@ const PackageCard = ({
   image: string;
   popular?: boolean;
   features: string[];
-  rating?: number; // Keep the type but we won't use it
+  rating?: number;
 }) => {
+  const [bookingLoading, setBookingLoading] = useState(false);
+
+  const handleQuickBook = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    setBookingLoading(true);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: {
+          packageId: id,
+          packageTitle: title,
+          price: price,
+        },
+      });
+
+      if (error) {
+        console.error('Payment error:', error);
+        toast({
+          title: "Payment Error",
+          description: "Failed to initiate payment. Please try again.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      if (data?.url) {
+        window.open(data.url, '_blank');
+      }
+    } catch (error) {
+      console.error('Booking error:', error);
+      toast({
+        title: "Booking Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setBookingLoading(false);
+    }
+  };
+
   return (
     <div className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
       <div className="relative">
@@ -71,11 +115,21 @@ const PackageCard = ({
           ))}
         </div>
         
-        <Link to={`/package/${id}`}>
-          <Button className="w-full bg-hajj-primary hover:bg-hajj-dark text-white">
-            View Details <ChevronRight className="h-4 w-4 ml-1" />
+        <div className="flex gap-2">
+          <Link to={`/package/${id}`} className="flex-1">
+            <Button variant="outline" className="w-full border-hajj-primary text-hajj-primary hover:bg-hajj-primary hover:text-white">
+              View Details <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+          </Link>
+          
+          <Button 
+            onClick={handleQuickBook}
+            disabled={bookingLoading}
+            className="flex-1 bg-hajj-primary hover:bg-hajj-dark text-white"
+          >
+            {bookingLoading ? "..." : "Book Now"}
           </Button>
-        </Link>
+        </div>
       </div>
     </div>
   );
