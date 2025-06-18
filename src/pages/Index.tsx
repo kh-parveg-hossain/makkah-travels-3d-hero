@@ -1,14 +1,17 @@
 
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
-import AboutSection from '@/components/AboutSection';
-import PackagesSection from '@/components/PackagesSection';
-import UmrahSection from '@/components/UmrahSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
-import ContactSection from '@/components/ContactSection';
-import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
+import LazySection from '@/components/LazySection';
+
+// Lazy load non-critical sections
+const AboutSection = lazy(() => import('@/components/AboutSection'));
+const PackagesSection = lazy(() => import('@/components/PackagesSection'));
+const UmrahSection = lazy(() => import('@/components/UmrahSection'));
+const TestimonialsSection = lazy(() => import('@/components/TestimonialsSection'));
+const ContactSection = lazy(() => import('@/components/ContactSection'));
+const Footer = lazy(() => import('@/components/Footer'));
 
 const Index = () => {
   useEffect(() => {
@@ -37,12 +40,31 @@ const Index = () => {
     <div className="min-h-screen">
       <Navbar />
       <HeroSection />
-      <AboutSection />
-      <PackagesSection />
-      <UmrahSection />
-      <TestimonialsSection />
-      <ContactSection />
-      <Footer />
+      
+      <LazySection>
+        <AboutSection />
+      </LazySection>
+      
+      <LazySection>
+        <PackagesSection />
+      </LazySection>
+      
+      <LazySection>
+        <UmrahSection />
+      </LazySection>
+      
+      <LazySection>
+        <TestimonialsSection />
+      </LazySection>
+      
+      <LazySection>
+        <ContactSection />
+      </LazySection>
+      
+      <LazySection>
+        <Footer />
+      </LazySection>
+      
       <ScrollToTop />
     </div>
   );

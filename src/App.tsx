@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,10 +11,23 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import { useState } from "react";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { usePerformanceMonitoring } from "./hooks/use-performance";
 
 const App = () => {
-  // Create a client
-  const [queryClient] = useState(() => new QueryClient());
+  // Monitor performance
+  usePerformanceMonitoring();
+
+  // Create a client with optimized settings
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 5 * 60 * 1000, // 5 minutes
+        gcTime: 10 * 60 * 1000, // 10 minutes
+        retry: 2,
+        refetchOnWindowFocus: false,
+      },
+    },
+  }));
 
   return (
     <QueryClientProvider client={queryClient}>

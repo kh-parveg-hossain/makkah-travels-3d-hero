@@ -1,3 +1,4 @@
+
 import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 import { useState } from 'react';
+import OptimizedImage from '@/components/OptimizedImage';
 
 const PackageCard = ({ 
   id,
@@ -72,16 +74,14 @@ const PackageCard = ({
   };
 
   return (
-    <div className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
+    <article className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
       <div className="relative">
-        <img 
-          src={image} 
-          alt={title} 
+        <OptimizedImage
+          src={image}
+          alt={`${title} - Premium Hajj package with accommodation and guidance`}
           className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "https://images.unsplash.com/photo-1604934128850-88e4f3f29bde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
-          }}
+          width={400}
+          height={256}
         />
         {popular && (
           <Badge className="absolute top-4 right-4 bg-hajj-accent text-white">
@@ -99,21 +99,21 @@ const PackageCard = ({
         <div className="flex justify-between items-center my-4">
           <div className="flex items-center">
             <Calendar className="h-4 w-4 text-hajj-accent mr-2" />
-            <span className="text-sm text-gray-600 dark:text-gray-400">{startDate}</span>
+            <time className="text-sm text-gray-600 dark:text-gray-400">{startDate}</time>
           </div>
           <div className="text-hajj-accent font-bold text-xl">
             ${price}
           </div>
         </div>
         
-        <div className="space-y-2 mb-6">
+        <ul className="space-y-2 mb-6">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-start">
+            <li key={index} className="flex items-start">
               <Check className="h-5 w-5 text-hajj-accent mr-2 mt-0.5 flex-shrink-0" />
               <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
         
         <div className="flex gap-2">
           <Link to={`/package/${id}`} className="flex-1">
@@ -131,7 +131,7 @@ const PackageCard = ({
           </Button>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 
@@ -197,7 +197,7 @@ const PackagesSection = () => {
   return (
     <section id="packages" className="py-20 bg-gradient-to-b from-hajj-primary to-hajj-dark text-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <header className="text-center mb-16">
           <span className="text-white font-medium">Our Packages</span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Premium Hajj Packages
@@ -206,7 +206,7 @@ const PackagesSection = () => {
             Choose from our carefully crafted Hajj packages designed to provide 
             a meaningful and comfortable spiritual journey.
           </p>
-        </div>
+        </header>
 
         <div 
           ref={ref} 
@@ -214,7 +214,7 @@ const PackagesSection = () => {
         >
           {packages.map((pkg, index) => (
             <div 
-              key={index}
+              key={pkg.id}
               className={`transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
               style={{ transitionDelay: `${index * 200}ms` }}
             >
