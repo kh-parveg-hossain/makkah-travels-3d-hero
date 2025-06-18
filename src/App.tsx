@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PackageDetails from "./pages/PackageDetails";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import AllPackages from "./pages/AllPackages";
 import { useState } from "react";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -39,6 +40,7 @@ const App = () => {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/packages" element={<AllPackages />} />
                 <Route path="/package/:packageId" element={<PackageDetails />} />
                 <Route path="/payment-success" element={<PaymentSuccess />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

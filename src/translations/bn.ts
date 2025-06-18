@@ -76,6 +76,24 @@ export const bn = {
     viewPackages: 'উমরাহ প্যাকেজ দেখুন',
     requestCustom: 'কাস্টম প্যাকেজ অনুরোধ করুন',
   },
+  // Package Details
+  packageDetails: {
+    backToPackages: 'প্যাকেজসমূহে ফিরে যান',
+    packageNotFound: 'প্যাকেজ পাওয়া যায়নি',
+    packageNotFoundDesc: 'আপনি যে প্যাকেজটি খুঁজছেন তা বিদ্যমান নেই।',
+    returnHome: 'হোমপেজে ফিরে যান',
+    loading: 'প্যাকেজের বিস্তারিত লোড হচ্ছে...',
+    duration: 'সময়কাল',
+    departureDate: 'প্রস্থানের তারিখ',
+    location: 'অবস্থান',
+    groupSize: 'গ্রুপের আকার',
+    bookNow: 'এখনই বুক করুন',
+    processing: 'প্রক্রিয়াকরণ...',
+    needHelp: 'বুকিংয়ে সাহায্য প্রয়োজন?',
+    packageDescription: 'প্যাকেজের বর্ণনা',
+    packageFeatures: 'প্যাকেজের বৈশিষ্ট্য',
+    itineraryOverview: 'ভ্রমণসূচির সংক্ষিপ্ত বিবরণ',
+  },
   // Footer
   footer: {
     description: 'হজ্জ এবং উমরাহ পরিষেবার জন্য আপনার বিশ্বস্ত অংশীদার, আরাম, যত্ন এবং প্রকৃত ইসলামী নির্দেশনার সাথে আধ্যাত্মিক যাত্রা প্রদানে নিবেদিত।',

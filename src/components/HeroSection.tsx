@@ -32,22 +32,35 @@ const HeroSection = () => {
       {/* Overlay with gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-hajj-dark/90 via-hajj-primary/80 to-hajj-dark/90 z-10"></div>
       
-      {/* 3D Model */}
-      <div className={`absolute inset-0 w-full h-full z-0 transition-opacity duration-700 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <iframe 
-          ref={iframeRef}
-          title="Kaaba" 
-          className="w-full h-full"
-          frameBorder="0" 
-          allowFullScreen 
-          onLoad={handleIframeLoad}
-          allow="autoplay; fullscreen; xr-spatial-tracking" 
-          src="https://sketchfab.com/models/45d4b0b4404a4ad7b3f7235f7a10382c/embed?autospin=1&autostart=1&preload=1&ui_infos=0&ui_controls=0&ui_stop=0"
-        />
-      </div>
+      {/* 3D Model - Only show on desktop */}
+      {!isMobile && (
+        <div className={`absolute inset-0 w-full h-full z-0 transition-opacity duration-700 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}>
+          <iframe 
+            ref={iframeRef}
+            title="Kaaba" 
+            className="w-full h-full"
+            frameBorder="0" 
+            allowFullScreen 
+            onLoad={handleIframeLoad}
+            allow="autoplay; fullscreen; xr-spatial-tracking" 
+            src="https://sketchfab.com/models/45d4b0b4404a4ad7b3f7235f7a10382c/embed?autospin=1&autostart=1&preload=1&ui_infos=0&ui_controls=0&ui_stop=0"
+          />
+        </div>
+      )}
       
-      {/* Loading indicator */}
-      {!iframeLoaded && (
+      {/* Static background image for mobile */}
+      {isMobile && (
+        <div className="absolute inset-0 w-full h-full z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1693590614566-1d3ea9ef32f7?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Kaaba"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+      
+      {/* Loading indicator - Only show when 3D model is loading on desktop */}
+      {!isMobile && !iframeLoaded && (
         <div className="absolute inset-0 z-5 flex items-center justify-center">
           <div className="w-16 h-16 border-4 border-hajj-accent border-t-transparent rounded-full animate-spin"></div>
         </div>

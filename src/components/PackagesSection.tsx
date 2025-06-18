@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Button } from '@/components/ui/button';
@@ -224,9 +223,11 @@ const PackagesSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button variant="outline" className="border-white text-white hover:bg-white/10">
-            View All Packages <ChevronRight className="h-4 w-4 ml-2" />
-          </Button>
+          <Link to="/packages">
+            <Button variant="outline" className="border-white text-white hover:bg-white/10">
+              View All Packages <ChevronRight className="h-4 w-4 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
