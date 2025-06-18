@@ -6,7 +6,14 @@ export const usePerformanceMonitoring = () => {
     // Monitor Core Web Vitals
     const observer = new PerformanceObserver((list) => {
       list.getEntries().forEach((entry) => {
-        console.log(`${entry.name}: ${entry.value}ms`);
+        if (entry.entryType === 'paint') {
+          console.log(`${entry.name}: ${entry.startTime}ms`);
+        } else if (entry.entryType === 'largest-contentful-paint') {
+          const lcpEntry = entry as any; // LCP entries have value property
+          console.log(`${entry.name}: ${lcpEntry.value || entry.startTime}ms`);
+        } else {
+          console.log(`${entry.name}: ${entry.startTime}ms`);
+        }
       });
     });
 
@@ -17,8 +24,11 @@ export const usePerformanceMonitoring = () => {
 
     // Monitor page load time
     window.addEventListener('load', () => {
-      const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-      console.log(`Page load time: ${loadTime}ms`);
+      const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+      if (navigation) {
+        const loadTime = navigation.loadEventEnd - navigation.loadEventStart;
+        console.log(`Page load time: ${loadTime}ms`);
+      }
     });
 
     return () => {
