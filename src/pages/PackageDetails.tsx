@@ -1,31 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Calendar, Clock, MapPin, Users, ArrowLeft, Phone, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  ArrowLeft, 
-  Clock, 
-  Calendar, 
-  Users, 
-  MapPin, 
-  Check, 
-  Star, 
-  Phone
-} from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import { useTheme } from '@/contexts/ThemeContext';
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
-import { toast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from '@/translations';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import BackButton from '@/components/BackButton';
 
 const PackageDetails = () => {
   const { packageId } = useParams();
   const [packageData, setPackageData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [bookingLoading, setBookingLoading] = useState(false);
   const { theme } = useTheme();
   const { currentLanguage } = useLanguage();
@@ -137,7 +125,7 @@ const PackageDetails = () => {
   useEffect(() => {
     // In a real app, this would be an API call
     const fetchPackageData = () => {
-      setLoading(true);
+      setIsLoading(true);
       // Simulate API delay
       setTimeout(() => {
         const foundPackage = packages.find(pkg => pkg.id === packageId);
@@ -146,7 +134,7 @@ const PackageDetails = () => {
           // Update the document title with the package name
           document.title = `${foundPackage.title} | মক্কা ট্রাভেলস`;
         }
-        setLoading(false);
+        setIsLoading(false);
       }, 500);
     };
 
@@ -193,188 +181,189 @@ const PackageDetails = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-hajj-light dark:bg-gray-900">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-hajj-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-hajj-primary dark:text-white">{t.packageDetails.loading}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!packageData) {
-    return (
-      <div className="min-h-screen">
-        <Navbar />
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-3xl font-bold text-hajj-primary dark:text-white">{t.packageDetails.packageNotFound}</h1>
-          <p className="mt-4 text-gray-600 dark:text-gray-400 mb-6">{t.packageDetails.packageNotFoundDesc}</p>
-          <Link to="/">
-            <Button className="bg-hajj-primary hover:bg-hajj-dark text-white">
-              <ArrowLeft className="mr-2 h-4 w-4" /> {t.packageDetails.returnHome}
-            </Button>
-          </Link>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-10">
-        <Link to="/packages" className="inline-flex items-center text-hajj-primary dark:text-white hover:underline mb-6">
-          <ArrowLeft className="mr-2 h-4 w-4" /> {t.packageDetails.backToPackages}
-        </Link>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Package Images */}
-          <div className="lg:col-span-2">
-            <Carousel className="w-full">
-              <CarouselContent>
-                {packageData.images.map((image: string, index: number) => (
-                  <CarouselItem key={index}>
-                    <div className="relative h-[300px] sm:h-[400px] md:h-[500px] rounded-lg overflow-hidden">
-                      <img 
-                        src={image} 
-                        alt={`${packageData.title} - ছবি ${index + 1}`} 
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = "https://images.unsplash.com/photo-1604934128850-88e4f3f29bde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
-                        }}
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-4" />
-              <CarouselNext className="right-4" />
-            </Carousel>
-          </div>
-          
-          {/* Package Overview */}
-          <div>
-            <Card className="glass-card h-full">
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <h1 className="text-2xl font-bold text-hajj-primary dark:text-white">{packageData.title}</h1>
-                  {packageData.popular && (
-                    <Badge className="bg-hajj-accent text-white">জনপ্রিয় পছন্দ</Badge>
-                  )}
-                </div>
-                
-                <div className="flex items-center mt-2 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`h-5 w-5 ${i < Math.floor(packageData.rating) ? 'text-amber-400 fill-amber-400' : 'text-gray-300'}`} 
-                    />
-                  ))}
-                  <span className="ml-2 text-gray-600 dark:text-gray-400">{packageData.rating.toFixed(1)}</span>
-                </div>
-                
-                <p className="text-3xl font-bold text-hajj-primary dark:text-white mb-6">${packageData.price}</p>
-                
-                <div className="space-y-4 mb-6">
-                  <div className="flex items-start">
-                    <Clock className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.duration}</p>
-                      <p className="font-medium">{packageData.days} দিন</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <Calendar className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.departureDate}</p>
-                      <p className="font-medium">{packageData.startDate}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <MapPin className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.location}</p>
-                      <p className="font-medium">{packageData.location}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <Users className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.groupSize}</p>
-                      <p className="font-medium">{packageData.groupSize}</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <Button 
-                  onClick={handleBookNow}
-                  disabled={bookingLoading}
-                  className="w-full bg-hajj-primary hover:bg-hajj-dark text-white"
-                >
-                  {bookingLoading ? t.packageDetails.processing : t.packageDetails.bookNow}
-                </Button>
-                
-                <div className="mt-6">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.needHelp}</p>
-                  <div className="flex items-center mt-2">
-                    <Phone className="h-4 w-4 text-hajj-accent mr-2" />
-                    <a href="tel:+1234567890" className="text-hajj-primary dark:text-white font-medium">+৮৮ ০১৭১১-১২৩৪৫৬</a>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+      <div className="pt-20">
+        {/* Back Button */}
+        <div className="container mx-auto px-4 py-4">
+          <BackButton />
         </div>
-        
-        {/* Package Description */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold text-hajj-primary dark:text-white mb-4">{t.packageDetails.packageDescription}</h2>
-          <div className="glass-card p-6 rounded-lg">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              {packageData.description}
-            </p>
-          </div>
-        </div>
-        
-        {/* Features */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold text-hajj-primary dark:text-white mb-4">{t.packageDetails.packageFeatures}</h2>
-          <div className="glass-card p-6 rounded-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {packageData.features.map((feature: string, index: number) => (
-                <div key={index} className="flex items-start">
-                  <Check className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
-                  <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                </div>
-              ))}
+
+        {isLoading ? (
+          <div className="min-h-screen flex items-center justify-center bg-hajj-light dark:bg-gray-900">
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-hajj-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
+              <p className="mt-4 text-hajj-primary dark:text-white">{t.packageDetails.loading}</p>
             </div>
           </div>
-        </div>
-        
-        {/* Itinerary */}
-        <div className="mt-12 mb-16">
-          <h2 className="text-2xl font-bold text-hajj-primary dark:text-white mb-4">{t.packageDetails.itineraryOverview}</h2>
-          <div className="glass-card p-6 rounded-lg">
-            <ol className="space-y-4">
-              {packageData.itinerary.map((item: string, index: number) => (
-                <li key={index} className="flex items-start">
-                  <div className="flex-shrink-0 bg-hajj-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5">
-                    {index + 1}
-                  </div>
-                  <span className="text-gray-700 dark:text-gray-300">{item}</span>
-                </li>
-              ))}
-            </ol>
+        ) : !packageData ? (
+          <div className="min-h-screen">
+            <Navbar />
+            <div className="container mx-auto px-4 py-20 text-center">
+              <h1 className="text-3xl font-bold text-hajj-primary dark:text-white">{t.packageDetails.packageNotFound}</h1>
+              <p className="mt-4 text-gray-600 dark:text-gray-400 mb-6">{t.packageDetails.packageNotFoundDesc}</p>
+              <Link to="/">
+                <Button className="bg-hajj-primary hover:bg-hajj-dark text-white">
+                  <ArrowLeft className="mr-2 h-4 w-4" /> {t.packageDetails.returnHome}
+                </Button>
+              </Link>
+            </div>
+            <Footer />
           </div>
-        </div>
+        ) : (
+          <div>
+            <Link to="/packages" className="inline-flex items-center text-hajj-primary dark:text-white hover:underline mb-6">
+              <ArrowLeft className="mr-2 h-4 w-4" /> {t.packageDetails.backToPackages}
+            </Link>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Package Images */}
+              <div className="lg:col-span-2">
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {packageData.images.map((image: string, index: number) => (
+                      <CarouselItem key={index}>
+                        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] rounded-lg overflow-hidden">
+                          <img 
+                            src={image} 
+                            alt={`${packageData.title} - ছবি ${index + 1}`} 
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = "https://images.unsplash.com/photo-1604934128850-88e4f3f29bde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
+                            }}
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-4" />
+                  <CarouselNext className="right-4" />
+                </Carousel>
+              </div>
+              
+              {/* Package Overview */}
+              <div>
+                <Card className="glass-card h-full">
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <h1 className="text-2xl font-bold text-hajj-primary dark:text-white">{packageData.title}</h1>
+                      {packageData.popular && (
+                        <Badge className="bg-hajj-accent text-white">জনপ্রিয় পছন্দ</Badge>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center mt-2 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star 
+                          key={i} 
+                          className={`h-5 w-5 ${i < Math.floor(packageData.rating) ? 'text-amber-400 fill-amber-400' : 'text-gray-300'}`} 
+                        />
+                      ))}
+                      <span className="ml-2 text-gray-600 dark:text-gray-400">{packageData.rating.toFixed(1)}</span>
+                    </div>
+                    
+                    <p className="text-3xl font-bold text-hajj-primary dark:text-white mb-6">${packageData.price}</p>
+                    
+                    <div className="space-y-4 mb-6">
+                      <div className="flex items-start">
+                        <Clock className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.duration}</p>
+                          <p className="font-medium">{packageData.days} দিন</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <Calendar className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.departureDate}</p>
+                          <p className="font-medium">{packageData.startDate}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <MapPin className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.location}</p>
+                          <p className="font-medium">{packageData.location}</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start">
+                        <Users className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.groupSize}</p>
+                          <p className="font-medium">{packageData.groupSize}</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <Button 
+                      onClick={handleBookNow}
+                      disabled={bookingLoading}
+                      className="w-full bg-hajj-primary hover:bg-hajj-dark text-white"
+                    >
+                      {bookingLoading ? t.packageDetails.processing : t.packageDetails.bookNow}
+                    </Button>
+                    
+                    <div className="mt-6">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{t.packageDetails.needHelp}</p>
+                      <div className="flex items-center mt-2">
+                        <Phone className="h-4 w-4 text-hajj-accent mr-2" />
+                        <a href="tel:+1234567890" className="text-hajj-primary dark:text-white font-medium">+৮৮ ০১৭১১-১২৩৪৫৬</a>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+            
+            {/* Package Description */}
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold text-hajj-primary dark:text-white mb-4">{t.packageDetails.packageDescription}</h2>
+              <div className="glass-card p-6 rounded-lg">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {packageData.description}
+                </p>
+              </div>
+            </div>
+            
+            {/* Features */}
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold text-hajj-primary dark:text-white mb-4">{t.packageDetails.packageFeatures}</h2>
+              <div className="glass-card p-6 rounded-lg">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {packageData.features.map((feature: string, index: number) => (
+                    <div key={index} className="flex items-start">
+                      <Check className="h-5 w-5 text-hajj-accent mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Itinerary */}
+            <div className="mt-12 mb-16">
+              <h2 className="text-2xl font-bold text-hajj-primary dark:text-white mb-4">{t.packageDetails.itineraryOverview}</h2>
+              <div className="glass-card p-6 rounded-lg">
+                <ol className="space-y-4">
+                  {packageData.itinerary.map((item: string, index: number) => (
+                    <li key={index} className="flex items-start">
+                      <div className="flex-shrink-0 bg-hajj-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5">
+                        {index + 1}
+                      </div>
+                      <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       
       <Footer />

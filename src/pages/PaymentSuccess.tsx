@@ -1,122 +1,60 @@
-
-import { useEffect, useState } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { CheckCircle, Package, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { CheckCircle, ArrowLeft, Download } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BackButton from '@/components/BackButton';
 
 const PaymentSuccess = () => {
-  const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get('session_id');
-  const [loading, setLoading] = useState(true);
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   useEffect(() => {
-    // Simulate loading for better UX
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-hajj-light dark:bg-gray-900">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-hajj-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="mt-4 text-hajj-primary dark:text-white">Processing your booking...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-20">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="mb-8">
-            <CheckCircle className="h-24 w-24 text-green-500 mx-auto mb-6" />
-            <h1 className="text-4xl font-bold text-hajj-primary dark:text-white mb-4">
-              Payment Successful!
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 text-lg">
-              Thank you for booking your Hajj package with us. Your spiritual journey awaits!
-            </p>
-          </div>
+      <div className="pt-20">
+        {/* Back Button */}
+        <div className="container mx-auto px-4 py-4">
+          <BackButton />
+        </div>
 
-          <Card className="glass-card mb-8">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-semibold text-hajj-primary dark:text-white mb-4">
-                What's Next?
-              </h2>
-              <div className="space-y-4 text-left">
-                <div className="flex items-start">
-                  <div className="bg-hajj-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 text-sm">
-                    1
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">Confirmation Email</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      You'll receive a detailed confirmation email with your booking details within 24 hours.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-hajj-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 text-sm">
-                    2
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">Document Preparation</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      Our team will contact you regarding visa processing and required documents.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-hajj-primary text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 text-sm">
-                    3
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-900 dark:text-white">Pre-Departure Briefing</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      Join our orientation session to prepare for your spiritual journey.
-                    </p>
-                  </div>
-                </div>
+        <div className="container mx-auto px-4 py-16">
+          <Card className="w-full max-w-md mx-auto">
+            <CardHeader className="flex flex-row items-center justify-center space-y-0 pb-2">
+              <CheckCircle className="h-10 w-10 text-green-500 mr-2" />
+              <CardTitle className="text-2xl font-semibold tracking-tight">
+                {t.packageDetails.bookNow} Successful!
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4 py-4">
+              <div className="space-y-1">
+                <p className="text-sm text-muted-foreground">
+                  {t.packageDetails.bookNow} confirmation sent to your email.
+                </p>
+              </div>
+              <div className="flex items-center justify-between pt-4">
+                <Link to="/" className="w-full">
+                  <Button className="w-full">
+                    <Home className="mr-2 h-4 w-4" />
+                    {t.navbar.home}
+                  </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/">
-              <Button variant="outline" className="border-hajj-primary text-hajj-primary hover:bg-hajj-primary hover:text-white">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Return to Homepage
-              </Button>
-            </Link>
-            
-            <Button className="bg-hajj-primary hover:bg-hajj-dark text-white">
-              <Download className="mr-2 h-4 w-4" />
-              Download Receipt
-            </Button>
-          </div>
-
-          {sessionId && (
-            <div className="mt-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg">
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                Session ID: {sessionId}
-              </p>
-            </div>
-          )}
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

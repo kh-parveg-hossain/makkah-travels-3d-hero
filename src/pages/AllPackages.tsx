@@ -1,5 +1,6 @@
-
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -179,97 +180,110 @@ const AllPackages = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-10">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-hajj-primary dark:text-white mb-4">
-            সমস্ত হজ্জ প্যাকেজ
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            আপনার প্রয়োজন এবং বাজেট অনুযায়ী সেরা হজ্জ প্যাকেজ বেছে নিন। আমাদের সব প্যাকেজই পেশাদার গাইড এবং সম্পূর্ণ সহায়তা সহ আসে।
-          </p>
+      <div className="pt-20">
+        {/* Back Button */}
+        <div className="container mx-auto px-4 py-4">
+          <BackButton />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {packages.map((pkg) => (
-            <Card key={pkg.id} className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
-              <div className="relative">
-                <OptimizedImage
-                  src={pkg.image}
-                  alt={`${pkg.title} - প্রিমিয়াম হজ্জ প্যাকেজ`}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-                  width={400}
-                  height={256}
-                />
-                {pkg.popular && (
-                  <Badge className="absolute top-4 right-4 bg-hajj-accent text-white">
-                    জনপ্রিয় পছন্দ
-                  </Badge>
-                )}
-                <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-800/90 py-1 px-3 rounded-full flex items-center">
-                  <Clock className="h-4 w-4 text-hajj-primary dark:text-hajj-accent mr-1" />
-                  <span className="text-sm">{pkg.days} দিন</span>
-                </div>
-              </div>
-              
-              <CardContent className="p-6">
-                <h3 className="text-xl font-semibold text-hajj-primary dark:text-white mb-2">{pkg.title}</h3>
-                
-                <div className="flex items-center mt-2 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`h-4 w-4 ${i < Math.floor(pkg.rating) ? 'text-amber-400 fill-amber-400' : 'text-gray-300'}`} 
-                    />
-                  ))}
-                  <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">{pkg.rating.toFixed(1)}</span>
-                </div>
-                
-                <div className="flex justify-between items-center my-4">
-                  <div className="flex items-center">
-                    <Calendar className="h-4 w-4 text-hajj-accent mr-2" />
-                    <time className="text-sm text-gray-600 dark:text-gray-400">{pkg.startDate}</time>
-                  </div>
-                  <div className="text-hajj-accent font-bold text-xl">
-                    ${pkg.price}
+        {/* Header */}
+        <div className="bg-gradient-to-r from-hajj-primary to-hajj-dark text-white py-16">
+          <div className="container mx-auto px-4 py-10">
+            <div className="text-center mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-hajj-primary dark:text-white mb-4">
+                সমস্ত হজ্জ প্যাকেজ
+              </h1>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                আপনার প্রয়োজন এবং বাজেট অনুযায়ী সেরা হজ্জ প্যাকেজ বেছে নিন। আমাদের সব প্যাকেজই পেশাদার গাইড এবং সম্পূর্ণ সহায়তা সহ আসে।
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {packages.map((pkg) => (
+              <Card key={pkg.id} className="glass-card overflow-hidden transition-all duration-300 hover:shadow-xl group rounded-lg bg-white dark:bg-gray-800 shadow-md">
+                <div className="relative">
+                  <OptimizedImage
+                    src={pkg.image}
+                    alt={`${pkg.title} - প্রিমিয়াম হজ্জ প্যাকেজ`}
+                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                    width={400}
+                    height={256}
+                  />
+                  {pkg.popular && (
+                    <Badge className="absolute top-4 right-4 bg-hajj-accent text-white">
+                      জনপ্রিয় পছন্দ
+                    </Badge>
+                  )}
+                  <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-800/90 py-1 px-3 rounded-full flex items-center">
+                    <Clock className="h-4 w-4 text-hajj-primary dark:text-hajj-accent mr-1" />
+                    <span className="text-sm">{pkg.days} দিন</span>
                   </div>
                 </div>
                 
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center">
-                    <MapPin className="h-4 w-4 text-hajj-accent mr-2" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{pkg.location}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Users className="h-4 w-4 text-hajj-accent mr-2" />
-                    <span className="text-sm text-gray-600 dark:text-gray-400">{pkg.groupSize}</span>
-                  </div>
-                </div>
-                
-                <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
-                  {pkg.description}
-                </p>
-                
-                <div className="flex gap-2">
-                  <Link to={`/package/${pkg.id}`} className="flex-1">
-                    <Button variant="outline" className="w-full border-hajj-primary text-hajj-primary hover:bg-hajj-primary hover:text-white">
-                      বিস্তারিত দেখুন <ChevronRight className="h-4 w-4 ml-1" />
-                    </Button>
-                  </Link>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold text-hajj-primary dark:text-white mb-2">{pkg.title}</h3>
                   
-                  <Button 
-                    onClick={() => handleQuickBook(pkg)}
-                    disabled={bookingLoading === pkg.id}
-                    className="flex-1 bg-hajj-primary hover:bg-hajj-dark text-white"
-                  >
-                    {bookingLoading === pkg.id ? "..." : "এখনই বুক করুন"}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  <div className="flex items-center mt-2 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`h-4 w-4 ${i < Math.floor(pkg.rating) ? 'text-amber-400 fill-amber-400' : 'text-gray-300'}`} 
+                      />
+                    ))}
+                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">{pkg.rating.toFixed(1)}</span>
+                  </div>
+                  
+                  <div className="flex justify-between items-center my-4">
+                    <div className="flex items-center">
+                      <Calendar className="h-4 w-4 text-hajj-accent mr-2" />
+                      <time className="text-sm text-gray-600 dark:text-gray-400">{pkg.startDate}</time>
+                    </div>
+                    <div className="text-hajj-accent font-bold text-xl">
+                      ${pkg.price}
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 text-hajj-accent mr-2" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">{pkg.location}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <Users className="h-4 w-4 text-hajj-accent mr-2" />
+                      <span className="text-sm text-gray-600 dark:text-gray-400">{pkg.groupSize}</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+                    {pkg.description}
+                  </p>
+                  
+                  <div className="flex gap-2">
+                    <Link to={`/package/${pkg.id}`} className="flex-1">
+                      <Button variant="outline" className="w-full border-hajj-primary text-hajj-primary hover:bg-hajj-primary hover:text-white">
+                        বিস্তারিত দেখুন <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </Link>
+                    
+                    <Button 
+                      onClick={() => handleQuickBook(pkg)}
+                      disabled={bookingLoading === pkg.id}
+                      className="flex-1 bg-hajj-primary hover:bg-hajj-dark text-white"
+                    >
+                      {bookingLoading === pkg.id ? "..." : "এখনই বুক করুন"}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
       

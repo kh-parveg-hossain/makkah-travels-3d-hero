@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { useInView } from '@/hooks/use-intersection-observer';
 import { Button } from '@/components/ui/button';
@@ -10,6 +9,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 import { useState } from 'react';
 import OptimizedImage from '@/components/OptimizedImage';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from '@/translations';
 
 const PackageCard = ({ 
   id,
@@ -142,6 +143,8 @@ const PackagesSection = () => {
   });
   
   const { theme } = useTheme();
+  const { currentLanguage } = useLanguage();
+  const t = useTranslation(currentLanguage);
 
   const packages = [
     {
@@ -226,7 +229,7 @@ const PackagesSection = () => {
         <div className="text-center mt-12">
           <Link to="/packages">
             <Button variant="outline" className="border-white text-white hover:bg-white/10">
-              View All Packages <ChevronRight className="h-4 w-4 ml-2" />
+              {t.allPackages.title} <ChevronRight className="h-4 w-4 ml-2" />
             </Button>
           </Link>
         </div>
