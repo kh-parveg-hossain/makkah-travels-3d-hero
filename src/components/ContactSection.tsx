@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react';
-import { useInView } from 'react-intersection-observer';
+import { useInView } from '@/hooks/use-intersection-observer';
 
 const ContactSection = () => {
   const { ref, inView } = useInView({

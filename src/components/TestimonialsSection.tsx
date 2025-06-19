@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useInView } from 'react-intersection-observer';
+import { useInView } from '@/hooks/use-intersection-observer';
 
 interface Testimonial {
   id: number;
@@ -141,4 +141,3 @@ const TestimonialsSection = () => {
 };
 
 export default TestimonialsSection;
-

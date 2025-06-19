@@ -1,5 +1,6 @@
+
 import { useRef } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useInView } from '@/hooks/use-intersection-observer';
 import { Button } from '@/components/ui/button';
 import { Check, Clock, Calendar, Users, MapPin, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';

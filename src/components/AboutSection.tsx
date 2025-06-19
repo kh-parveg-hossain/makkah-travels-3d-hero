@@ -1,6 +1,6 @@
 
 import { useRef } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useInView } from '@/hooks/use-intersection-observer';
 import { Award, Heart, Users, CheckCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from '@/translations';

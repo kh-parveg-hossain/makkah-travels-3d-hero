@@ -1,5 +1,5 @@
 
-import { useInView } from 'react-intersection-observer';
+import { useInView } from '@/hooks/use-intersection-observer';
 import { Button } from '@/components/ui/button';
 import { ChevronRight, Star } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
