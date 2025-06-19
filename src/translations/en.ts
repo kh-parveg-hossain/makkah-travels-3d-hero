@@ -76,6 +76,41 @@ export const en = {
     viewPackages: 'View Umrah Packages',
     requestCustom: 'Request Custom Package',
   },
+  // Package Details
+  packageDetails: {
+    loading: 'Loading...',
+    packageNotFound: 'Package Not Found',
+    packageNotFoundDesc: 'The package you are looking for could not be found.',
+    returnHome: 'Return Home',
+    backToPackages: 'Back to All Packages',
+    duration: 'Duration',
+    departureDate: 'Departure Date',
+    location: 'Destination',
+    groupSize: 'Group Size',
+    bookNow: 'Book Now',
+    processing: 'Processing...',
+    needHelp: 'Need Help?',
+    packageDescription: 'Package Description',
+    packageFeatures: 'Package Features',
+    itineraryOverview: 'Itinerary Overview'
+  },
+  // All Packages
+  allPackages: {
+    title: 'All Hajj Packages',
+    subtitle: 'Choose Your Perfect Package',
+    description: 'Explore all our Hajj packages and select the one that best fits your budget and requirements.',
+    filterByPrice: 'Filter by Price',
+    sortBy: 'Sort By',
+    sortByPrice: 'Price',
+    sortByDuration: 'Duration',
+    sortByPopularity: 'Popularity',
+    from: 'From',
+    to: 'To',
+    applyFilter: 'Apply Filter',
+    clearFilter: 'Clear Filter',
+    noPackagesFound: 'No packages found',
+    adjustFilters: 'Try adjusting your filters.'
+  },
   // Footer
   footer: {
     description: 'Your trusted partner for Hajj and Umrah services, dedicated to providing spiritual journeys with comfort, care, and authentic Islamic guidance.',

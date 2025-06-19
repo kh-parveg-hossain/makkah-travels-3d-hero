@@ -76,6 +76,41 @@ export const ur = {
     viewPackages: 'عمرہ پیکجز دیکھیں',
     requestCustom: 'کسٹم پیکج کی درخواست کریں',
   },
+  // Package Details
+  packageDetails: {
+    loading: 'لوڈ ہو رہا ہے...',
+    packageNotFound: 'پیکج نہیں ملا',
+    packageNotFoundDesc: 'آپ جو پیکج تلاش کر رہے ہیں وہ نہیں ملا۔',
+    returnHome: 'ہوم واپس جائیں',
+    backToPackages: 'تمام پیکجز میں واپس',
+    duration: 'مدت',
+    departureDate: 'روانگی کی تاریخ',
+    location: 'منزل',
+    groupSize: 'گروپ کا سائز',
+    bookNow: 'ابھی بک کریں',
+    processing: 'پروسیسنگ...',
+    needHelp: 'مدد چاہیے؟',
+    packageDescription: 'پیکج کی تفصیل',
+    packageFeatures: 'پیکج کی خصوصیات',
+    itineraryOverview: 'سفری منصوبہ'
+  },
+  // All Packages
+  allPackages: {
+    title: 'تمام حج پیکجز',
+    subtitle: 'اپنا بہترین پیکج منتخب کریں',
+    description: 'ہمارے تمام حج پیکجز دیکھیں اور اپنے بجٹ اور ضروریات کے مطابق بہترین منتخب کریں۔',
+    filterByPrice: 'قیمت کے حساب سے فلٹر',
+    sortBy: 'ترتیب دیں',
+    sortByPrice: 'قیمت',
+    sortByDuration: 'مدت',
+    sortByPopularity: 'مقبولیت',
+    from: 'سے',
+    to: 'تک',
+    applyFilter: 'فلٹر لگائیں',
+    clearFilter: 'فلٹر صاف کریں',
+    noPackagesFound: 'کوئی پیکج نہیں ملا',
+    adjustFilters: 'فلٹرز تبدیل کرکے کوشش کریں۔'
+  },
   // Footer
   footer: {
     description: 'حج اور عمرہ خدمات کے لیے آپ کا قابل اعتماد ساتھی، آرام، دیکھ بھال اور اصل اسلامی رہنمائی کے ساتھ روحانی سفر فراہم کرنے کے لیے وقف۔',

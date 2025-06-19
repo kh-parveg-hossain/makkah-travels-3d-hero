@@ -76,6 +76,41 @@ export const ar = {
     viewPackages: 'عرض باقات العمرة',
     requestCustom: 'طلب باقة مخصصة',
   },
+  // Package Details
+  packageDetails: {
+    loading: 'جاري التحميل...',
+    packageNotFound: 'الباقة غير موجودة',
+    packageNotFoundDesc: 'الباقة التي تبحث عنها غير متوفرة.',
+    returnHome: 'العودة للرئيسية',
+    backToPackages: 'العودة لجميع الباقات',
+    duration: 'المدة',
+    departureDate: 'تاريخ المغادرة',
+    location: 'الوجهة',
+    groupSize: 'حجم المجموعة',
+    bookNow: 'احجز الآن',
+    processing: 'جاري المعالجة...',
+    needHelp: 'تحتاج مساعدة؟',
+    packageDescription: 'وصف الباقة',
+    packageFeatures: 'مميزات الباقة',
+    itineraryOverview: 'نظرة عامة على البرنامج'
+  },
+  // All Packages
+  allPackages: {
+    title: 'جميع باقات الحج',
+    subtitle: 'اختر الباقة المثالية',
+    description: 'استكشف جميع باقات الحج واختر الأنسب لميزانيتك ومتطلباتك.',
+    filterByPrice: 'تصفية حسب السعر',
+    sortBy: 'ترتيب حسب',
+    sortByPrice: 'السعر',
+    sortByDuration: 'المدة',
+    sortByPopularity: 'الشعبية',
+    from: 'من',
+    to: 'إلى',
+    applyFilter: 'تطبيق التصفية',
+    clearFilter: 'مسح التصفية',
+    noPackagesFound: 'لم يتم العثور على باقات',
+    adjustFilters: 'جرب تعديل التصفية.'
+  },
   // Footer
   footer: {
     description: 'شريكك الموثوق لخدمات الحج والعمرة، ملتزمون بتوفير رحلات روحانية براحة ورعاية وتوجيه إسلامي أصيل.',

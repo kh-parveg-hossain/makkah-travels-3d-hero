@@ -76,6 +76,41 @@ export const hi = {
     viewPackages: 'उमराह पैकेज देखें',
     requestCustom: 'कस्टम पैकेज का अनुरोध करें',
   },
+  // Package Details
+  packageDetails: {
+    loading: 'लोड हो रहा है...',
+    packageNotFound: 'पैकेज नहीं मिला',
+    packageNotFoundDesc: 'आपका खोजा गया पैकेज नहीं मिला।',
+    returnHome: 'होम पर वापस जाएं',
+    backToPackages: 'सभी पैकेज में वापस',
+    duration: 'अवधि',
+    departureDate: 'प्रस्थान तिथि',
+    location: 'गंतव्य',
+    groupSize: 'समूह का आकार',
+    bookNow: 'अभी बुक करें',
+    processing: 'प्रोसेसिंग...',
+    needHelp: 'मदद चाहिए?',
+    packageDescription: 'पैकेज विवरण',
+    packageFeatures: 'पैकेज की विशेषताएं',
+    itineraryOverview: 'यात्रा कार्यक्रम'
+  },
+  // All Packages
+  allPackages: {
+    title: 'सभी हज पैकेज',
+    subtitle: 'अपना सही पैकेज चुनें',
+    description: 'हमारे सभी हज पैकेज देखें और अपने बजट और आवश्यकताओं के अनुसार सबसे अच्छा चुनें।',
+    filterByPrice: 'मूल्य के अनुसार फिल्टर',
+    sortBy: 'सॉर्ट करें',
+    sortByPrice: 'मूल्य',
+    sortByDuration: 'अवधि',
+    sortByPopularity: 'लोकप्रियता',
+    from: 'से',
+    to: 'तक',
+    applyFilter: 'फिल्टर लगाएं',
+    clearFilter: 'फिल्टर साफ करें',
+    noPackagesFound: 'कोई पैकेज नहीं मिला',
+    adjustFilters: 'फिल्टर बदलकर कोशिश करें।'
+  },
   // Footer
   footer: {
     description: 'हज और उमराह सेवाओं के लिए आपका विश्वसनीय साथी, आराम, देखभाल और प्रामाणिक इस्लामिक मार्गदर्शन के साथ आध्यात्मिक यात्राएं प्रदान करने के लिए समर्पित।',
