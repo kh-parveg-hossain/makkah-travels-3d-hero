@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronRight, Star } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from '@/translations';
+import { Link } from 'react-router-dom';
 
 const UmrahSection = () => {
   const { ref, inView } = useInView({
@@ -74,9 +75,11 @@ const UmrahSection = () => {
             </div>
             
             <div className="space-x-4">
-              <Button className="bg-hajj-primary hover:bg-hajj-dark text-white">
-                {t.umrah.viewPackages} <ChevronRight className="h-4 w-4 ml-2" />
-              </Button>
+              <Link to="/packages">
+                <Button className="bg-hajj-primary hover:bg-hajj-dark text-white">
+                  {t.umrah.viewPackages} <ChevronRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
               <Button variant="outline" className="border-hajj-primary text-hajj-primary hover:bg-hajj-primary/5">
                 {t.umrah.requestCustom}
               </Button>
