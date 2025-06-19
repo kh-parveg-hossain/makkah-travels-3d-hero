@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTranslation } from '@/translations';
@@ -9,6 +10,7 @@ import { Clock, Calendar, Users, MapPin, Check, ChevronRight, Star } from 'lucid
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import OptimizedImage from '@/components/OptimizedImage';
+import BackButton from '@/components/BackButton';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 
